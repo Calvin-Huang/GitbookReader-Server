@@ -13,6 +13,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "node-ga": "^0.1.1",
+    "passport-gitbook": "^1.0.0",
     "pug": "^2.0.0-beta6",
     "sequelize": "^3.24.3",
     "sequelize-cli": "^2.4.0",
