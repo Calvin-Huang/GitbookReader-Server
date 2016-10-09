@@ -6,12 +6,17 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var GitBookStrategy = require('passport-gitbook');
+var randtoken = require('rand-token');
 
 var config = require('./config/config.json');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+import { User } from './models';
+
+const util = require('util');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +28,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Setup passport
@@ -32,11 +39,39 @@ passport.use(new GitBookStrategy({
     callbackURL: config[app.settings.env].gitbook.callbackURL,
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ uid: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    User
+      .findOrCreate({
+        where: {
+          uid: profile.id
+        },
+        defaults: {
+          uid: profile.id,
+          username: profile.username,
+          password: randtoken.generate(16),
+          profileURL: profile._json.urls.profile,
+          starsURL: profile._json.urls.stars,
+          token: accessToken,
+          authToken: profile._json.auth.token,
+        }
+      })
+      .then((users) => {
+        done(null, users[0]);
+      });
   }
 ));
+
+passport.serializeUser((user, done) => {
+  console.log(`===> ${user.uid}`);
+  done(null, user.uid);
+});
+
+passport.deserializeUser((uid, done) => {
+  User
+    .findOne({ uid: uid })
+    .then((user) => {
+      done(null, user);
+    });
+});
 
 app.use('/', routes);
 app.use('/users', users);
