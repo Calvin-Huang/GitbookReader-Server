@@ -7,7 +7,8 @@
     "dialect": "sqlite",
     "gitbook": {
       "clientId": "[CLIENT_ID]",
-      "clientSecret": "[CLIENT SECRET]"
+      "clientSecret": "[CLIENT SECRET]",
+      "callbackURL": "[CALLBACK_URL]"
     }
   },
   "test": {
@@ -18,7 +19,8 @@
     "dialect": "sqlite",
     "gitbook": {
       "clientId": "[CLIENT_ID]",
-      "clientSecret": "[CLIENT SECRET]"
+      "clientSecret": "[CLIENT SECRET]",
+      "callbackURL": "[CALLBACK_URL]"
     }
   },
   "production": {
@@ -29,7 +31,8 @@
     "dialect": "sqlite",
     "gitbook": {
       "clientId": "[CLIENT_ID]",
-      "clientSecret": "[CLIENT SECRET]"
+      "clientSecret": "[CLIENT SECRET]",
+      "callbackURL": "[CALLBACK_URL]"
     }
   }
 }

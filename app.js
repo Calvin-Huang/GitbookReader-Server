@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 passport.use(new GitBookStrategy({
     clientID: config[app.settings.env].gitbook.clientId,
     clientSecret: config[app.settings.env].gitbook.clientSecret,
-    endpoint: "https://api.gitbook.com/"
+    callbackURL: config[app.settings.env].gitbook.callbackURL,
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ uid: profile.id }, function (err, user) {
