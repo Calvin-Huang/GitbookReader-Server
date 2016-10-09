@@ -32,7 +32,7 @@ passport.use(new GitBookStrategy({
     endpoint: "https://api.gitbook.com/"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ gitbookId: profile.id }, function (err, user) {
+    User.findOrCreate({ uid: profile.id }, function (err, user) {
       return done(err, user);
     });
   }
