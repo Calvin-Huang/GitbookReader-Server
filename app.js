@@ -4,7 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var GitBookStrategy = require('passport-gitbook');
 
+var config = require('./config/config.json');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -21,6 +24,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Setup passport
+passport.use(new GitBookStrategy({
+    clientID: config.clientId,
+    clientSecret: config.clientSecret,
+    endpoint: "https://api.gitbook.com/"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ gitbookId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 app.use('/', routes);
 app.use('/users', users);
