@@ -20,10 +20,13 @@ module.exports = {
       token: {
         type: Sequelize.STRING
       },
-      auth_token: {
+      authToken: {
         type: Sequelize.STRING
       },
-      stars_url: {
+      starsURL: {
+        type: Sequelize.STRING
+      },
+      profileURL: {
         type: Sequelize.STRING
       },
       createdAt: {
