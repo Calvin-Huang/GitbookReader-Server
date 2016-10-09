@@ -27,8 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Setup passport
 passport.use(new GitBookStrategy({
-    clientID: config.clientId,
-    clientSecret: config.clientSecret,
+    clientID: config[app.settings.env].gitbook.clientId,
+    clientSecret: config[app.settings.env].gitbook.clientSecret,
     endpoint: "https://api.gitbook.com/"
   },
   function(accessToken, refreshToken, profile, done) {
