@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var GitBookStrategy = require('passport-gitbook');
 var randtoken = require('rand-token');
+var fs = require('fs');
 
 var config = require('./config/config.json');
 var routes = require('./routes/index');
@@ -71,6 +72,12 @@ passport.deserializeUser((uid, done) => {
     .then((user) => {
       done(null, user);
     });
+});
+
+app.get('/apple-app-site-association', (req, res, next) => {
+  var config = fs.readFileSync(__dirname + '/config/apple-app-site-association.json');
+  res.set('Content-Type', 'application/pkcs7-mime');
+  res.status(200).send(config);
 });
 
 app.use('/', routes);
