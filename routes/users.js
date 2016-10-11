@@ -3,11 +3,12 @@ var passport = require('passport');
 var router = express.Router();
 
 import { User } from '../models';
+// import { authenticate } from '../middlewares';
+import { authenticate } from '../middlewares/authenticate';
 
 /* GET users listing. */
-router.get('/', async (req, res, next) => {
-  const user = await User.findOne({ token: req.query.token })
-  res.send(JSON.stringfy(user));
+router.get('/', authenticate, async (req, res, next) => {
+  res.json(req.user)
 });
 
 router.get('/auth/gitbook', passport.authenticate('gitbook'));
