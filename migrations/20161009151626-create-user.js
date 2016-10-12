@@ -29,6 +29,9 @@ module.exports = {
       profileURL: {
         type: Sequelize.STRING
       },
+      books: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

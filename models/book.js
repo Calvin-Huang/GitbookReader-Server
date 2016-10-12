@@ -4,14 +4,11 @@ module.exports = function(sequelize, DataTypes) {
     bid: DataTypes.STRING,
     author: DataTypes.STRING,
     title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    description: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        // User.hasMany(models.Task)
-        Book.belongsTo(models.User, { foreignKey : 'userId' });
       }
     }
   });
