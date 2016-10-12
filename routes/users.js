@@ -26,10 +26,10 @@ router.get('/:username/starred', async (req, res, next) => {
       const anchor = $(book).find('h4.title > a');
       const bookInfos = anchor.attr('href').split('/');
       return {
-        id: bookInfos[bookInfos.length - 1],
+        bid: bookInfos[bookInfos.length - 1],
         author: bookInfos[bookInfos.length - 2],
         title: anchor.text(),
-        description: $(book).find('p.description').text()
+        description: $(book).find('p.description').text(),
       };
     })
     .get();
