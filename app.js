@@ -12,6 +12,7 @@ var fs = require('fs');
 var config = require('./config/config.json');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var books = require('./routes/books');
 
 var app = express();
 
@@ -62,7 +63,6 @@ passport.use(new GitBookStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-  console.log(`===> ${user.uid}`);
   done(null, user.uid);
 });
 
@@ -82,6 +82,7 @@ app.get('/apple-app-site-association', (req, res, next) => {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
