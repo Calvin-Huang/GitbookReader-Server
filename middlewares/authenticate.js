@@ -4,13 +4,13 @@ var util = require('util');
 
 const authenticate = async (req, res, next) => {
   if (res.user === undefined) {
-    const authenticateToken = req.headers['authentication-token'] || req.query.token;
+    const authenticationToken = req.headers['authentication-token'] || req.query.token;
 
-    if (authenticateToken !== undefined) {
+    if (authenticationToken !== undefined) {
       const user = await User
         .findOne({
             where: {
-              token: authenticateToken
+              token: authenticationToken
             }
         })
 
